@@ -7,8 +7,8 @@ from stable_baselines3.common.env_util import make_vec_env
 #env = make_vec_env((lambda: gym.make("LocoMujoco", env_name="UnitreeA1.simple")), n_envs=2)
 env = gym.make("LocoMujoco", env_name="UnitreeA1.simple")
 
-model = PPO(policy="MlpPolicy", env=env)
-model.learn(10_000_000, log_interval=500, verbose=1)
+model = PPO(policy="MlpPolicy", env=env, verbose=1)
+model.learn(10_000_000, log_interval=1000)
 
 action_dim = env.action_space.shape[0]
 obs_dim = env.observation_space.shape[0]
