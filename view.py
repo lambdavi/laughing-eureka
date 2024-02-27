@@ -8,7 +8,7 @@ from stable_baselines3.common.env_util import make_vec_env
 env = gym.make("LocoMujoco", env_name="UnitreeA1.simple")
 
 model = PPO(policy="MlpPolicy", env=env)
-model.learn(10_000_000, progress_bar=True, log_interval=10)
+model.learn(10_000_000, log_interval=500, verbose=1)
 
 action_dim = env.action_space.shape[0]
 obs_dim = env.observation_space.shape[0]
