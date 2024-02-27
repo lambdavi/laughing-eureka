@@ -1,14 +1,14 @@
 import numpy as np
 from loco_mujoco import LocoEnv
 import gymnasium as gym
+from stable_baselines3 import PPO
+from stable_baselines3.common.env_util import make_vec_env
 
-# create the environment and task
-def my_reward_function(state, action, next_state):
-    return -np.mean(action)
-
-
+#env = make_vec_env((lambda: gym.make("LocoMujoco", env_name="UnitreeA1.simple")), n_envs=2)
 env = gym.make("LocoMujoco", env_name="UnitreeA1.simple")
-# get the dataset for the chosen environment and task
+
+model = PPO(policy="MlpPolicy", env=env)
+model.learn(10_000_000, progress_bar=True, log_interval=10)
 
 action_dim = env.action_space.shape[0]
 obs_dim = env.observation_space.shape[0]
@@ -16,16 +16,16 @@ obs_dim = env.observation_space.shape[0]
 print(action_dim)
 print(obs_dim)
 
-env.reset()
+nstate, _ = env.reset()
 env.render()
 terminated = False
 i = 0
 
 while True:
     if i == 1000 or terminated:
-        env.reset()
+        nstate, _ = env.reset()
         i = 0
-    action = np.random.randn(action_dim)
+    action = model.predict(observation=nstate)[0]
     nstate, reward, terminated, truncated, info = env.step(action)
 
     env.render()
