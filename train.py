@@ -41,5 +41,5 @@ model = SAC(
     tensorboard_log="./logs/sac/"
 )
 
-model.learn(1_000_000, log_interval=100, progress_bar=True)
+model.learn(250_000, log_interval=100, progress_bar=True)
 model.save("final_model")
