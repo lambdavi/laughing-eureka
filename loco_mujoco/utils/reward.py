@@ -117,4 +117,4 @@ class VelocityVectorReward(RewardInterface):
         norm_x = np.cos(angle)
         norm_y = np.sin(angle)
         des_vel = state[self._goal_vel_idx] * np.array([norm_x, norm_y])
-        return np.exp(-5.0*np.linalg.norm(curr_velocity_xy - des_vel)) - 1
+        return np.exp(-5.0*np.linalg.norm(curr_velocity_xy - des_vel))
