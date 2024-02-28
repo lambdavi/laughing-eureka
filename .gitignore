@@ -399,3 +399,4 @@ FodyWeavers.xsd
 
 # Local Repo
 trained_models/
+*.egg-info
